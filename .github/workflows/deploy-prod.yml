@@ -1,0 +1,27 @@
+name: Deploy Prod
+on: 
+  push:
+    branches:
+      - 'main'
+env:
+  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+jobs:
+  terraform_apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Terraform Apply
+      run: |
+        terraform init \
+          -backend-config="bucket=landigu-tf-remote-state" \
+          -backend-config="key=banyan-crm/${{vars.PROJECT_NAME}}/terraform.tfstate" \
+          -backend-config="region=sa-east-1"
+        terraform validate
+        terraform workspace select prod || terraform workspace new prod
+        terraform apply -auto-approve -var-file="infra/prod/parameters.tfvars"
