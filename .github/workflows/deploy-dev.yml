@@ -16,8 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check if PR is merged
-        if: github.event.pull_request.merged == true
-        run: echo "Pull request was merged into '${{ github.event.pull_request.base.ref }}'. Workflow triggered!"
+        if: github.event.pull_request.merged != true
+        run: exit 1
+      - name: Proceed if PR is merged
+        run: echo "✅ Pull request was merged. Continuing workflow..."
   
   terraform_apply:
     name: Deploy Dev
