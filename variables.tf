@@ -5,9 +5,10 @@ variable "environment" {
 
 variable "lambda_name" {
   description = "nome da lambda"
-  default     = "banyan-crm-lambda-opportunities"
+  default     = ""
 }
 
 variable "memory_size" {
   description = "memoria da lambda"
+  default = 128
 }
