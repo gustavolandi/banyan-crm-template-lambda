@@ -25,12 +25,15 @@ resource "aws_iam_role_policy_attachment" "cloudwatch_logs" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-resource "aws_iam_role_policy" "lambda_policy" {
-  name = "${var.lambda_name}-${var.environment}-policy"
-  role = aws_iam_role.lambda_role.id
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = []
-  })
-}
+# TODO - editar bloco apos criacao da pipeline
+
+# resource "aws_iam_role_policy" "lambda_policy" {
+#   name = "${var.lambda_name}-${var.environment}-policy"
+#   role = aws_iam_role.lambda_role.id
+
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = []
+#   })
+# }
