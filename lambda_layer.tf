@@ -1,7 +1,7 @@
 #define variables
 locals {
-  layer_path        = "lambda_layer_crm"
-  layer_zip_name    = "layer-status-opportunity.zip"
+  layer_path        = "lambda_layer"
+  layer_zip_name    = "layer-${var.lambda_name}.zip"
   layer_name        = "layer-${var.lambda_name}-${var.environment}"
   requirements_name = "requirements.txt"
   requirements_path = "${path.module}/${local.layer_path}/${local.requirements_name}"
